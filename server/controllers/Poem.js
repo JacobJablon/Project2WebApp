@@ -59,15 +59,14 @@ const getMyPoemCount = async (req, res) => {
 
 const getAllPublicPoems = async (req, res) => {
   try {
-    const query = { privacy: false }
-    const docs = await Poem.find(query).populate('writer', 'username').select('name poem anonymity likes writer createdDate').lean().exec();
+    const query = { privacy: false };
+    const docs = await Poem.find(query).populate('writer', 'username').select('name poem anonymity likes writer createdDate').lean()
+      .exec();
 
-    const anonymitySecuredPoems = docs.map(poem => {
-      if (poem.anonymity) {
-        poem.writer = { username: 'Anonymous Poet' };
-      }
-      return poem;
-    })
+    const anonymitySecuredPoems = docs.map((poem) => ({
+      ...poem,
+      writer: poem.anonymity ? { username: 'Anonymous Poet' } : poem.writer,
+    }));
 
     return res.json({ poems: anonymitySecuredPoems });
   } catch (err) {
@@ -91,10 +90,10 @@ const likeOrUnlikePoem = async (req, res) => {
     const userId = req.session.account._id;
     const poem = await Poem.findById(req.params.id);
 
-    //where in the poem.likedBy array the user's id is
+    // where in the poem.likedBy array the user's id is
     const likedByIndex = poem.likedBy.indexOf(userId);
 
-    //if the user's id isn't in the poem.likedBy array it will be -1
+    // if the user's id isn't in the poem.likedBy array it will be -1
     if (likedByIndex === -1) {
       poem.likedBy.push(userId);
       poem.likes += 1;
@@ -104,7 +103,7 @@ const likeOrUnlikePoem = async (req, res) => {
     }
 
     await poem.save();
-    //return T/F based on if it is or isn't now liked
+    // return T/F based on if it is or isn't now liked
     return res.status(200).json({ likes: poem.likes, liked: likedByIndex === -1 });
   } catch (err) {
     console.log(err);
