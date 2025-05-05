@@ -3,23 +3,33 @@ const _ = require('underscore');
 
 const setName = (name) => _.escape(name).trim();
 
-const DomoSchema = new mongoose.Schema({
+const PoemSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
     trim: true,
     set: setName,
   },
-  age: {
-    type: Number,
-    min: 0,
-    required: true,
-  },
-  emotion: {
+  poem: {
     type: String,
     required: true,
   },
-  owner: {
+  privacy: {
+    type: Boolean,
+    required: true,
+  },
+  anonymity: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
+  likes: {
+    type: Number,
+    min: 0,
+    required: false,
+    default: 0,
+  },
+  writer: {
     type: mongoose.Schema.ObjectId,
     required: true,
     ref: 'Account',
@@ -30,10 +40,10 @@ const DomoSchema = new mongoose.Schema({
   },
 });
 
-DomoSchema.statics.toAPI = (doc) => ({
+PoemSchema.statics.toAPI = (doc) => ({
   name: doc.name,
-  age: doc.age,
+  poem: doc.poem,
 });
 
-const DomoModel = mongoose.model('Domo', DomoSchema);
-module.exports = DomoModel;
+const PoemModel = mongoose.model('Poem', PoemSchema);
+module.exports = PoemModel;

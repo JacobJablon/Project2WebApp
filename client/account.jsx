@@ -3,12 +3,17 @@ const React = require('react');
 const { useState, useEffect } = React;
 const { createRoot } = require('react-dom/client');
 
+const handlePoem = (id, onPoemDeleted) => {
+    helper.hideError();
+    helper.sendDelete(id, onPoemDeleted);
+};
+
 const PoemList = (props) => {
-    const [poems, setPoems] = useState(props.poems);
+    const [poems, setPoems] = useState([]);
 
     useEffect(() => {
         const loadPoemsFromServer = async () => {
-            const response = await fetch('/getAllPublicPoems');
+            const response = await fetch('/getMyPoems');
             const data = await response.json();
             setPoems(data.poems);
         };
@@ -25,18 +30,17 @@ const PoemList = (props) => {
 
     const poemNodes = poems.map(poem => {
         return (
-            <div key={poem.id} className="poem">
+            <div key={poem._id} className="poem">
                 <h3 className="poemName">Name: {poem.name}</h3>
                 <h3 className="poemPoem">Poem: {poem.poem}</h3>
                 <h3 className="poemLikes">Likes: {poem.likes}</h3>
-                <h3 className="poemWriter">Writer: {poem.writer}</h3>
                 <h3 className="poemCreatedDate">
                     Posted on: {new Date(poem.createdDate).toLocaleString(undefined, {
                         dateStyle: 'medium',
                         timeStyle: 'short',
                     })}
                 </h3>
-                <h1>****************************************</h1>
+                <button className="poemDeleteBtn" onClick={() => handlePoem(poem._id, props.triggerReload)}>Delete</button>
             </div>
         );
     });
@@ -50,11 +54,13 @@ const PoemList = (props) => {
 
 const App = () => {
     const [reloadPoems, setReloadPoems] = useState(false);
+    
+    const triggerReload = () => setReloadPoems(!reloadPoems);
 
     return (
         <div>
             <div id="poems">
-                <PoemList poems={[]} reloadPoems={reloadPoems} />
+                <PoemList reloadPoems={reloadPoems} triggerReload={triggerReload} />
             </div>
         </div>
     );

@@ -28,6 +28,20 @@ const sendPost = async (url, data, handler) => {
     }
 };
 
+const sendDelete = async (id, handler) => {
+    const response = await fetch(`/deletePoem/${id}`, {
+        method: 'DELETE',
+    });
+
+    console.log("response", response);
+
+    if (response.ok) {
+        handler();
+    } else {
+        handleError(response.statusText);
+    }
+}
+
 const hideError = () => {
     document.getElementById('domoMessage').classList.add('hidden');
 };
@@ -36,4 +50,5 @@ module.exports = {
     handleError,
     sendPost,
     hideError,
+    sendDelete,
 };

@@ -1,7 +1,7 @@
 {
-  "name": "domomaker-d",
+  "name": "project2webapp",
   "version": "1.0.0",
-  "description": "A Simple Login Example using Node.js, Mongo and Redis",
+  "description": "A simple web app that uses Node.js, Mongo and Redis",
   "main": "./server/app.js",
   "scripts": {
     "webpack": "webpack",
@@ -21,7 +21,8 @@
   "author": "Cody Van De Mark / Austin Willoughby",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@babel/preset-react": "^7.26.3",
+    "@babel/core": "^7.27.1",
+    "@babel/preset-react": "^7.27.1",
     "babel-loader": "^10.0.0",
     "eslint": "^8.57.1",
     "eslint-config-airbnb": "^19.0.4",
@@ -49,10 +50,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JacobJablon/DomoMaker-D.git"
+    "url": "git+https://github.com/JacobJablon/Project2WebApp.git"
   },
   "bugs": {
-    "url": "https://github.com/JacobJablon/DomoMaker-D/issues"
+    "url": "https://github.com/JacobJablon/Project2WebApp/issues"
   },
-  "homepage": "https://github.com/JacobJablon/DomoMaker-D#readme"
+  "homepage": "https://github.com/JacobJablon/Project2WebApp#readme"
 }
