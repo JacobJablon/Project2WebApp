@@ -42,6 +42,18 @@ const sendDelete = async (id, handler) => {
     }
 }
 
+const sendPatch = async (id, handler) => {
+    const response = await fetch(`/likeOrUnlikePoem/${id}`, {
+        method: 'PATCH',
+    });
+
+    if (response.ok) {
+        handler();
+    } else {
+        handleError(response.statusText);
+    }
+}
+
 const hideError = () => {
     document.getElementById('domoMessage').classList.add('hidden');
 };
@@ -51,4 +63,5 @@ module.exports = {
     sendPost,
     hideError,
     sendDelete,
+    sendPatch,
 };

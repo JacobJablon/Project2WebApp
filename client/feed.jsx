@@ -3,6 +3,11 @@ const React = require('react');
 const { useState, useEffect } = React;
 const { createRoot } = require('react-dom/client');
 
+const handlePoem = (id, onPoemLikeChange) => {
+    helper.hideError();
+    helper.sendPatch(id, onPoemLikeChange);
+};
+
 const PoemList = (props) => {
     const [poems, setPoems] = useState(props.poems);
 
@@ -29,13 +34,14 @@ const PoemList = (props) => {
                 <h3 className="poemName">Name: {poem.name}</h3>
                 <h3 className="poemPoem">Poem: {poem.poem}</h3>
                 <h3 className="poemLikes">Likes: {poem.likes}</h3>
-                <h3 className="poemWriter">Writer: {poem.writer}</h3>
+                <h3 className="poemWriter">Writer: {poem.writer.username}</h3>
                 <h3 className="poemCreatedDate">
                     Posted on: {new Date(poem.createdDate).toLocaleString(undefined, {
                         dateStyle: 'medium',
                         timeStyle: 'short',
                     })}
                 </h3>
+                <button className="poemLikeOrUnlikeBtn" onClick={() => handlePoem(poem._id, props.triggerReload)}>Like</button>
                 <h1>****************************************</h1>
             </div>
         );
@@ -51,10 +57,12 @@ const PoemList = (props) => {
 const App = () => {
     const [reloadPoems, setReloadPoems] = useState(false);
 
+    const triggerReload = () => setReloadPoems(!reloadPoems);
+
     return (
         <div>
             <div id="poems">
-                <PoemList poems={[]} reloadPoems={reloadPoems} />
+                <PoemList poems={[]} reloadPoems={reloadPoems} triggerReload={triggerReload} />
             </div>
         </div>
     );

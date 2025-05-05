@@ -29,6 +29,10 @@ const PoemSchema = new mongoose.Schema({
     required: false,
     default: 0,
   },
+  likedBy: [{
+    type: mongoose.Schema.ObjectId,
+    ref: 'Account',
+  }],
   writer: {
     type: mongoose.Schema.ObjectId,
     required: true,

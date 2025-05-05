@@ -17,8 +17,9 @@ const router = (app) => {
   app.post('/writer', mid.requiresLogin, controllers.Poem.writePoem);
   app.get('/getMyPoemCount', mid.requiresLogin, controllers.Poem.getMyPoemCount);
 
-  app.get('/getAllPublicPoems', mid.requiresLogin, controllers.Poem.getAllPublicPoems);
   app.get('/feed', mid.requiresLogin, controllers.Poem.feedPage);
+  app.get('/getAllPublicPoems', mid.requiresLogin, controllers.Poem.getAllPublicPoems);
+  app.patch('/likeOrUnlikePoem/:id', mid.requiresLogin, controllers.Poem.likeOrUnlikePoem);
 
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 };

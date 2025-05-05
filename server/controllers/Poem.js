@@ -59,9 +59,17 @@ const getMyPoemCount = async (req, res) => {
 
 const getAllPublicPoems = async (req, res) => {
   try {
-    const docs = await Poem.find().select('name poem anonymity likes createdDate').lean().exec();
+    const query = { privacy: false }
+    const docs = await Poem.find(query).populate('writer', 'username').select('name poem anonymity likes writer createdDate').lean().exec();
 
-    return res.json({ poems: docs });
+    const anonymitySecuredPoems = docs.map(poem => {
+      if (poem.anonymity) {
+        poem.writer = { username: 'Anonymous Poet' };
+      }
+      return poem;
+    })
+
+    return res.json({ poems: anonymitySecuredPoems });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'Error retrieving poems!' });
@@ -78,6 +86,32 @@ const deletePoemById = async (req, res) => {
   }
 };
 
+const likeOrUnlikePoem = async (req, res) => {
+  try {
+    const userId = req.session.account._id;
+    const poem = await Poem.findById(req.params.id);
+
+    //where in the poem.likedBy array the user's id is
+    const likedByIndex = poem.likedBy.indexOf(userId);
+
+    //if the user's id isn't in the poem.likedBy array it will be -1
+    if (likedByIndex === -1) {
+      poem.likedBy.push(userId);
+      poem.likes += 1;
+    } else {
+      poem.likedBy.splice(likedByIndex, 1);
+      poem.likes -= 1;
+    }
+
+    await poem.save();
+    //return T/F based on if it is or isn't now liked
+    return res.status(200).json({ likes: poem.likes, liked: likedByIndex === -1 });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: 'Error updating like status!' });
+  }
+};
+
 module.exports = {
   accountPage,
   writerPage,
@@ -87,4 +121,5 @@ module.exports = {
   getMyPoems,
   getMyPoemCount,
   deletePoemById,
+  likeOrUnlikePoem,
 };
