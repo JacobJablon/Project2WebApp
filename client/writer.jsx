@@ -30,17 +30,29 @@ const PoemForm = (props) => {
         method="POST"
         className="poemForm"
         >
-            <label htmlFor="name">Name: </label>
-            <input id="poemName" type="text" name="name" placeholder="Name of poem" />
-            <label htmlFor="poem">Poem: </label>
-            <input id="poemPoem" type="text" name="poem" placeholder="Poem goes here" />
-            <label htmlFor='privacy'>Privacy Status: </label>
-            <label><input type="radio" name="privacy" value="true" />Private</label>
-            <label><input type="radio" name="privacy" value="false" />Public</label>
-            <label htmlFor='anonymity'>Anonymity Status: </label>
-            <label><input type="radio" name="anonymity" value="true" />Anonymous</label>
-            <label><input type="radio" name="anonymity" value="false" />Signed</label>
-            <input className="writePoemSubmit" type="submit" value="Upload Poem" />
+            <label htmlFor="name">Name:</label>
+            <br></br>
+            <input id="poemName" type="text" name="name" placeholder="The Raven" />
+            <br></br>
+            <label htmlFor="poem">Poem:</label>
+            <br></br>
+            <textarea id="poemPoem" name="poem" rows="20" cols="50" placeholder="Once upon a midnight dreary..."></textarea>
+            <br></br>
+            <div id="privacySection">
+                <label htmlFor='privacy'>Privacy Status: </label>
+                <label><input type="radio" name="privacy" value="true" />Private</label>
+                <label><input type="radio" name="privacy" value="false" />Public</label>
+            </div>
+            <br></br>
+            <div id="anonymitySection">
+                <label htmlFor='anonymity'>Anonymity Status: </label>
+                <label><input type="radio" name="anonymity" value="true" />Anonymous</label>
+                <label><input type="radio" name="anonymity" value="false" />Signed</label>
+            </div>
+            <br></br>
+            <div id="uploadBtnContainer">
+                <input className="writePoemSubmit" type="submit" value="Upload" /> 
+            </div>
         </form>
     );
 };

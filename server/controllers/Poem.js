@@ -10,7 +10,7 @@ const feedPage = async (req, res) => res.render('feed');
 
 const writePoem = async (req, res) => {
   if (!req.body.name || !req.body.poem || !req.body.privacy || !req.body.anonymity) {
-    return res.status(400).json({ error: 'Name, poem, and privacy status are all required' });
+    return res.status(400).json({ error: 'All fields are required' });
   }
 
   const poemData = {
@@ -37,7 +37,7 @@ const writePoem = async (req, res) => {
 const getMyPoems = async (req, res) => {
   try {
     const query = { writer: req.session.account._id };
-    const docs = await Poem.find(query).select('name poem privacy anonymity likes createdDate').lean().exec();
+    const docs = await Poem.find(query).select('name poem privacy anonymity likes createdDate').sort({ createdDate: -1 }).lean().exec();
 
     return res.json({ poems: docs });
   } catch (err) {
@@ -60,8 +60,7 @@ const getMyPoemCount = async (req, res) => {
 const getAllPublicPoems = async (req, res) => {
   try {
     const query = { privacy: false };
-    const docs = await Poem.find(query).populate('writer', 'username').select('name poem anonymity likes writer createdDate').lean()
-      .exec();
+    const docs = await Poem.find(query).populate('writer', 'username').select('name poem anonymity likes writer createdDate').sort({ createdDate: -1 }).lean().exec();
 
     const anonymitySecuredPoems = docs.map((poem) => ({
       ...poem,

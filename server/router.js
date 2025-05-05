@@ -22,6 +22,10 @@ const router = (app) => {
   app.patch('/likeOrUnlikePoem/:id', mid.requiresLogin, controllers.Poem.likeOrUnlikePoem);
 
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
+
+  app.get('/*', (req, res) => {
+    res.redirect('/feed');
+  });
 };
 
 module.exports = router;

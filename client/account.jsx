@@ -31,16 +31,20 @@ const PoemList = (props) => {
     const poemNodes = poems.map(poem => {
         return (
             <div key={poem._id} className="poem">
-                <h3 className="poemName">Name: {poem.name}</h3>
-                <h3 className="poemPoem">Poem: {poem.poem}</h3>
-                <h3 className="poemLikes">Likes: {poem.likes}</h3>
-                <h3 className="poemCreatedDate">
-                    Posted on: {new Date(poem.createdDate).toLocaleString(undefined, {
+                <h3 className="poemName">{poem.name}</h3>
+                <h3 className="poemPoem">{poem.poem}</h3>
+                <div className="lastLine">
+                    <h3 className="poemLikes">Likes: {poem.likes}</h3>
+                    <h3 className="poemCreatedDate">
+                    {new Date(poem.createdDate).toLocaleString(undefined, {
                         dateStyle: 'medium',
                         timeStyle: 'short',
                     })}
                 </h3>
-                <button className="poemDeleteBtn" onClick={() => handlePoem(poem._id, props.triggerReload)}>Delete</button>
+                </div>
+                <div className="poemDeleteBtnContainer">
+                    <button className="poemDeleteBtn" onClick={() => handlePoem(poem._id, props.triggerReload)}>Delete</button>
+                </div>
             </div>
         );
     });

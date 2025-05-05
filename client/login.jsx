@@ -43,41 +43,62 @@ const handleSignup = (e) => {
 
 const LoginWindow = (props) => {
     return (
-        <form id="loginForm"
-            name="loginForm"
-            onSubmit={handleLogin}
-            action="/login"
-            method="POST"
-            className="mainForm"
-        >
-            <label htmlFor="username">Username: </label>
-            <input id="user" type="text" name="username" placeholder="username" />
-            <label htmlFor="pass">Password: </label>
-            <input id="pass" type="password" name="pass" placeholder="password" />
-            <input className="formSubmit" type="submit" value="Sign in" />
-        </form>
+        <div id="loginFormContainer">
+            <form id="loginForm"
+                name="loginForm"
+                onSubmit={handleLogin}
+                action="/login"
+                method="POST"
+                className="mainForm"
+            >
+                <label id="userLabel" htmlFor="username">Username: </label>
+                <input id="user" type="text" name="username" placeholder="username" />
+                <br></br>
+                <label id="passLabel" htmlFor="pass">Password: </label>
+                <input id="pass" type="password" name="pass" placeholder="password" />
+                <br></br>
+                <div id="submitBtnContainer">
+                    <input className="formSubmit" type="submit" value="Sign in" />
+                </div>
+            </form>
+        </div>
     );
 };
 
 const SignupWindow = (props) => {
     return (
-        <form id="signupForm"
-            name="signupForm"
-            onSubmit={handleSignup}
-            action="/signup"
-            method="POST"
-            className="mainForm"
-        >
-            <label htmlFor="username">Username: </label>
-            <input id="user" type="text" name="username" placeholder="username" />
-            <label htmlFor="pass">Password: </label>
-            <input id="pass" type="password" name="pass" placeholder="password" />
-            <label htmlFor="pass">Password: </label>
-            <input id="pass2" type="password" name="pass2" placeholder="retype password" />
-            <input className="formSubmit" type="submit" value="Sign up" />
-        </form>
+        <div id="signupFormContainer">
+            <form id="signupForm"
+                name="signupForm"
+                onSubmit={handleSignup}
+                action="/signup"
+                method="POST"
+                className="mainForm"
+            >
+                <label id="userLabel" htmlFor="username">Username: </label>
+                <input id="user" type="text" name="username" placeholder="username" />
+                <br></br>
+                <label id="passLabel" htmlFor="pass">Password: </label>
+                <input id="pass" type="password" name="pass" placeholder="password" />
+                <br></br>
+                <label id="pass2Label" htmlFor="pass2">Password: </label>
+                <input id="pass2" type="password" name="pass2" placeholder="retype password" />
+                <br></br>
+                <div id="submitBtnContainer">
+                    <input className="formSubmit" type="submit" value="Sign up" />
+                </div>
+            </form>
+        </div>
     );
 };
+
+// const LoginApp = () => {
+//     return (
+//         <div>
+
+//         </div>
+//     )
+// }
 
 const init = () => {
     const loginButton = document.getElementById('loginButton');

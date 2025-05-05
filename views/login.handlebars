@@ -1,26 +1,43 @@
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
+  <meta charset="utf-8" />
   <title>Poetree</title>
   <link rel="icon" type="image/png" href="/assets/img/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="/assets/img/favicon-16x16.png" sizes="16x16" />
-  <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+  <link rel="stylesheet" type="text/css" href="/assets/style.css" />
 </head>
-<body> 
-  <nav><a href="/login"><img id="logo" src="/assets/img/PoetreeLogo.png" alt="Poetree logo"/></a>
-    <div class="navlink"><a id="loginButton" href="/login">Login</a></div>
-    <div class="navlink"><a id="signupButton" href="/signup">Sign up</a></div>
+
+<body>
+  <nav>
+    <div id="logo-link-container">
+      <a href="/login"><img id="logo" src="/assets/img/PoetreeLogo.png" alt="Poetree logo" /></a>
+    </div>
+    <div>
+      <ul class="nav-links">
+        <li><a id="loginButton" href="/login">Login</a></li>
+        <li><a id="signupButton" href="/signup">Sign up</a></li>
+      </ul>
+    </div>
   </nav>
-  
+
+  <section id="title-container">
+    <div id="small-title-container">
+      <img id="title-logo" src="/assets/img/PoetreeLogo.png" alt="Poetree logo">
+      <div id="titles">
+        <h1 id="title">Poetree</h1>
+        <h2 id="subtitle">Plant your words. Watch them bloom</h2>
+      </div>
+    </div>
+  </section>
+
   <section id="content">
 
   </section>
 
-  <div id="domoMessage" class='hidden'>
-    <img id="speech" src="/assets/img/speech.png" alt="speech box"/>
+  <div id="poemMessage" class='hidden'>
     <h3><span id="errorMessage"></span></h3>
-    <img id="domo" src="assets/img/domo.png" alt="domo"/>
   </div>
   <script src="/assets/loginBundle.js"></script>
 </body>
+
 </html>
